@@ -1,114 +1,111 @@
-
-
 *, *::before, *::after {
-  box-sizing: border-box;
-  font-family: Gotham Rounded;
+  box-sizing: border-box; /* Makes sure padding and borders are included in the element's total width and height */
+  font-family: Gotham Rounded; /* Sets the font for the whole app */
 }
 
-:root {
-  --hue-neutral: 200;
-  --hue-wrong: 0;
-  --hue-correct: 145;
+:root { /*Here we are "initialising" the colors for easy access */
+  --hue-neutral: 200; /* Default color hue */
+  --hue-wrong: 0; /* Red for wrong answers */
+  --hue-correct: 145; /* Green for correct answers */
 }
 
-body { //for the body of the app
-  --hue: var(--hue-neutral);
+body {
+  --hue: var(--hue-neutral); /* Default background color */
   padding: 0;
   margin: 0;
-  display: flex;
-  width: 100vw;
+  display: flex; /* Centers everything */
+  width: 100vw; 
   height: 100vh;
-  justify-content: center;
-  align-items: center;
-  background-color: hsl(var(--hue), 100%, 20%);
+  justify-content: center; 
+  align-items: center; 
+  background-color: hsl(var(--hue), 100%, 20%); /* Background color based on hue */
 }
 
-body.correct { *when the option chosed is correct
-  --hue: var(--hue-correct);
+body.correct {
+  --hue: var(--hue-correct); /* Green background for correct answers */
 }
 
 body.wrong {
-  --hue: var(--hue-wrong);
+  --hue: var(--hue-wrong); /* Red background for wrong answers */
 }
 
 .container {
-  width: 800px;
-  height: 100%;
-  max-width: 80%;
-  background-color: rgb(12, 236, 225);
-  border-radius: 5px;
-  padding: 10px;
-  box-shadow: 0 0 10px 2px;
-  position:relative;
-  overflow: auto;
+  width: 800px; /* Container width */
+  max-width: 80%; 
+  background-color: rgb(12, 236, 225); 
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px; /* Padding inside the container */
+  box-shadow: 0 0 10px 2px; 
+  position: relative; /* Relative positioning for child elements */
+  overflow: auto; /* Scrollbars if content overflows */
 }
 
 .btn-grid {
-  display: grid;
-  grid-template-columns: repeat(2, auto);
-  gap: 10px;
-  margin: 20px 0;
+  display: grid; /* Grid layout for buttons */
+  grid-template-columns: repeat(2, auto); /* Two columns */
+  gap: 10px; /* Space between buttons */
+  margin: 20px 0; /* Margin above and below */
 }
 
-.btn {
-  --hue: var(--hue-neutral);
-  border: 3px solid hsl(var(--hue), 100%, 30%);
-  border-radius: 5px;
-  padding: 5px 10px;
-  color: rgb(9, 8, 8);
-  outline: none;
+.btn { /* for styling the buttons */
+  --hue: var(--hue-neutral); 
+  border: 3px solid hsl(var(--hue), 100%, 30%); 
+  border-radius: 5px; 
+  padding: 5px 10px; 
+  color: rgb(9, 8, 8); 
+  outline: none; /* Removes default focus outline */
 }
 
 .btn:hover {
-  border-color: black;
+  border-color: black; /* Changes border color on hover */
 }
 
 .btn.correct {
-  --hue: var(--hue-correct);
+  --hue: var(--hue-correct); 
 }
 
 .btn.wrong {
-  --hue: var(--hue-wrong);
+  --hue: var(--hue-wrong); 
 }
 
 .start-btn, .next-btn {
-  font-size: 1.5rem;
-  font-weight: bold;
-  padding: 10px 20px;
+  font-size: 1.5rem; /* Bigger font size for buttons */
+  font-weight: bold; /* Bold text */
+  padding: 10px 20px; /* Ample padding for clicking */
 }
 
 .controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: flex; /* Flexbox for alignment */
+  justify-content: center; /* Center controls horizontally */
+  align-items: center; /* Center controls vertically */
 }
 
 .hide {
-  display: none;
+  display: none; /* Hides elements */
 }
-.question-img{
-  display: block;
-  max-width:100%;
-  height:100%;
-  object-fit: contain;
+
+.question-img { 
+  display: block; /* Makes sure images are block-level */
+  max-width: 100%; /*adjust the measurements accordingly by making sure everything else is displayed*/
+  height: 100%;
+  object-fit: contain; 
 }
 
 .timer {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin: 20px 0;
+  font-size: 1.5rem; 
+  font-weight: bold; 
+  margin: 20px 0; 
 }
 
-.end-message {
-  font-size: 2rem;
-  font-weight: bold;
-  text-align: center;
-  margin-top: 20px;
+.end-message { /*styling the message "congratulation!"*/
+  font-size: 2rem; 
+  font-weight: bold; 
+  text-align: center; 
+  margin-top: 20px; 
 }
 
-.score {
-  font-size: 1.5rem;
-  text-align: center;
-  margin-top: 10px;
+.score { /* styling only the score part */
+  font-size: 1.5rem; 
+  text-align: center; 
+  margin-top: 10px; 
 }
-
