@@ -11,7 +11,7 @@
   --hue-correct: 145;
 }
 
-body {
+body { //for the body of the app
   --hue: var(--hue-neutral);
   padding: 0;
   margin: 0;
@@ -23,7 +23,7 @@ body {
   background-color: hsl(var(--hue), 100%, 20%);
 }
 
-body.correct {
+body.correct { *when the option chosed is correct
   --hue: var(--hue-correct);
 }
 
