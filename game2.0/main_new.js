@@ -211,4 +211,12 @@ const questions = [
             {text: "Sun",correct:true}
         ]
     },
+    {
+        question:"Guess the spelling correctly",
+        image: "images/net.jpeg",
+        answers:[
+            {text: "Met",correct:false},
+            {text: "Net",correct:true}
+        ]
+    },
 ];
