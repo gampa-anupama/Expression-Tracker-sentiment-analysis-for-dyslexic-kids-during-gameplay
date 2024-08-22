@@ -2,38 +2,33 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <!-- Link to external stylesheet for styling -->
-    <link rel="stylesheet" href="style.css">
-    <!-- Link to external JavaScript file with defer attribute to ensure it's executed after the HTML is parsed -->
+    <link rel="stylesheet" href="styles.css" />
     <script defer type="module" src="main_new.js"></script>
-    <!-- Link to Canvas Confetti library for the confetti effect -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GAME PLAY</title>
+    
   </head>
-  <body class="correct">
-    <div class="container"> 
-      <!-- Timer display for the game -->
+  <body>
+    <div class="container">
       <div id="timer" class="timer">Time Remaining: 3:00</div>
-      <!-- Container for the question, image, and answer buttons; initially hidden -->
       <div id="question-container" class="hide">
-        <!-- Displays the current question -->
-        <div id="question">Question</div>
-        <!-- Displays the image related to the question -->
-        <img id="question-img" src="" alt="Question Image" class="question-img">
-        <!-- Grid layout for answer buttons -->
-        <div id="answer-buttons" class="btn-grid">
-          <button class="btn">Answer 1</button>
-          <button class="btn">Answer 2</button>
-          <button class="btn">Answer 3</button>
-          <button class="btn">Answer 4</button>
-        </div>
+        <div id="question" class="question-text">Question</div>
+        <img id="question-img" src="" alt="Question Image" class="question-img" />
+        <div id="answer-buttons" class="btn-grid"></div>
       </div>
-      <!-- Controls for starting the game and moving to the next question -->
       <div class="controls">
         <button id="start-btn" class="start-btn btn">Start</button>
         <button id="next-btn" class="next-btn btn hide">Next</button>
       </div>
     </div>
+    <div class="end-screen hide">
+      <div class="container">
+        <div class="end-message">Quiz Results</div>
+        <div class="score">Your score: [Score]/[Total Questions]</div>
+        <br><button class="btn" onclick="Home()">Home</button>
+      </div>
+    </div>
   </body>
 </html>
+
