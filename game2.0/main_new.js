@@ -5,6 +5,7 @@ const questionElement = document.getElementById('question');
 const questionImageElement = document.getElementById('question-img');
 const answerButtonsElement = document.getElementById('answer-buttons');
 const timerElement = document.getElementById('timer');
+//
 
 let shuffledQuestions, currentQuestionIndex;
 let score = 0;
