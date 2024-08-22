@@ -205,4 +205,36 @@ const questions = [
       { text: "hat", correct: true },
     ],
   },
+  {
+    question:"What does the image show?",
+    image: "images/pencil.jpeg",
+    answers:[
+        {text: "QUENCIL",correct:false},
+        {text: "PENCIL",correct:true}
+    ]
+},
+{
+    question:"Which numbers shows NINE?",
+    image: "images/69.jpg",
+    answers:[
+        {text: "A",correct:false},
+        {text: "B",correct:true}
+    ]
+},
+{
+    question:"Guess the spelling correctly",
+    image: "images/sun.jpeg",
+    answers:[
+        {text: "Son",correct:false},
+        {text: "Sun",correct:true}
+    ]
+},
+{
+    question:"Guess the spelling correctly",
+    image: "images/net.jpeg",
+    answers:[
+        {text: "Met",correct:false},
+        {text: "Net",correct:true}
+    ]
+},
 ];
