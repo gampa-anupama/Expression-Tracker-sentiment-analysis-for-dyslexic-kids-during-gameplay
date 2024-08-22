@@ -206,4 +206,3 @@ const questions = [
     ],
   },
 ];
-//im tired
