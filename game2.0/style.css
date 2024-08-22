@@ -1,111 +1,131 @@
-*, *::before, *::after {
-  box-sizing: border-box; /* Makes sure padding and borders are included in the element's total width and height */
-  font-family: Gotham Rounded; /* Sets the font for the whole app */
-}
-
-:root { /*Here we are "initialising" the colors for easy access */
-  --hue-neutral: 200; /* Default color hue */
-  --hue-wrong: 0; /* Red for wrong answers */
-  --hue-correct: 145; /* Green for correct answers */
+:root {
+  --primary-color: #171616; /* Vibrant red */
+  --secondary-color: #eba421; /* Vibrant yellow */
+  --accent-color: #74b9ff; /* Vibrant blue */
+  --text-color:rgb(21, 20, 20); /* Dark gray for text */
+  --background-color: #a4cada; /* Light background */
+  --correct-color: #00b894; /* Bright green for correct */
+  --wrong-color: #d63031; /* Bright red for wrong */
+  --word-color: white;
 }
 
 body {
-  --hue: var(--hue-neutral); /* Default background color */
   padding: 0;
   margin: 0;
-  display: flex; /* Centers everything */
-  width: 100vw; 
+  display: flex;
+  width: 100vw;
   height: 100vh;
-  justify-content: center; 
-  align-items: center; 
-  background-color: hsl(var(--hue), 100%, 20%); /* Background color based on hue */
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background-color);
+  transition: background-color 0.5s ease; /* Smooth transition for background change */
 }
 
-body.correct {
-  --hue: var(--hue-correct); /* Green background for correct answers */
+.correct {
+  background-color: var(--correct-color) !important;
 }
 
-body.wrong {
-  --hue: var(--hue-wrong); /* Red background for wrong answers */
+.wrong {
+  background-color: var(--wrong-color) !important;
 }
 
 .container {
-  width: 800px; /* Container width */
-  max-width: 80%; 
-  background-color: rgb(12, 236, 225); 
-  border-radius: 5px; /* Rounded corners */
-  padding: 10px; /* Padding inside the container */
-  box-shadow: 0 0 10px 2px; 
-  position: relative; /* Relative positioning for child elements */
-  overflow: auto; /* Scrollbars if content overflows */
-}
-
-.btn-grid {
-  display: grid; /* Grid layout for buttons */
-  grid-template-columns: repeat(2, auto); /* Two columns */
-  gap: 10px; /* Space between buttons */
-  margin: 20px 0; /* Margin above and below */
-}
-
-.btn { /* for styling the buttons */
-  --hue: var(--hue-neutral); 
-  border: 3px solid hsl(var(--hue), 100%, 30%); 
-  border-radius: 5px; 
-  padding: 5px 10px; 
-  color: rgb(9, 8, 8); 
-  outline: none; /* Removes default focus outline */
-}
-
-.btn:hover {
-  border-color: black; /* Changes border color on hover */
-}
-
-.btn.correct {
-  --hue: var(--hue-correct); 
-}
-
-.btn.wrong {
-  --hue: var(--hue-wrong); 
-}
-
-.start-btn, .next-btn {
-  font-size: 1.5rem; /* Bigger font size for buttons */
-  font-weight: bold; /* Bold text */
-  padding: 10px 20px; /* Ample padding for clicking */
-}
-
-.controls {
-  display: flex; /* Flexbox for alignment */
-  justify-content: center; /* Center controls horizontally */
-  align-items: center; /* Center controls vertically */
-}
-
-.hide {
-  display: none; /* Hides elements */
-}
-
-.question-img { 
-  display: block; /* Makes sure images are block-level */
-  max-width: 100%; /*adjust the measurements accordingly by making sure everything else is displayed*/
-  height: 100%;
-  object-fit: contain; 
+  width: 100%;
+  max-width: 700px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 15px 25px rgba(31, 16, 16, 0.038);
+  text-align: center;
 }
 
 .timer {
-  font-size: 1.5rem; 
-  font-weight: bold; 
-  margin: 20px 0; 
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--text-color);
+  margin-bottom: 20px;
 }
 
-.end-message { /*styling the message "congratulation!"*/
-  font-size: 2rem; 
-  font-weight: bold; 
-  text-align: center; 
-  margin-top: 20px; 
+.question-text {
+  font-size: 1.6rem;
+  color: var(--primary-color);
+  
+  margin-bottom: 15px;
 }
 
-.score { /* styling only the score part */
-  font-size: 1.5rem; 
-  text-align: center; 
-  margin-top: 10px; 
+.question-img {
+  display: block;
+  max-width: 50%;
+  height: auto;
+  margin: 10px auto;
+  border-radius: 5px;
+  box-shadow: 0px 5px 10px rgba(28, 22, 22, 0.218);
+}
+
+.btn-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.btn {
+  font-size: 1.2rem;
+  font-weight: bold;
+  background-color: var(--secondary-color);
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  color: var(--word-color);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn:hover {
+  background-color: var(--accent-color);
+  color: white;
+  transform: scale(1.05);
+}
+
+.selected {
+  background-color: var(--accent-color); /* Highlight selected option */
+  color: white;
+}
+
+.hide {
+  display: none;
+}
+
+.end-message {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-top: 20px;
+}
+
+.score {
+  font-size: 1.5rem;
+  color: var(--text-color);
+  margin-top: 10px;
+}
+.end-screen {
+  display: none; /* Hidden by default */
+  background-color: #a4cada; /* Background color */
+  color: var(--text-color); /* Ensure text color contrasts with background */
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute; /* Ensure it covers the entire screen */
+  top: 0;
+  left: 0;
+}
+
+.end-screen.show {
+  display: flex; /* Show when needed */
+}
+
+.hide {
+  display: none;
 }
