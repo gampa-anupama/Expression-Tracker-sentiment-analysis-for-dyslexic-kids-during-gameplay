@@ -1,19 +1,15 @@
-//const is used to declare variables that should not be reassigned after their initial value is set
 const nextButton = document.getElementById('next-btn');
 const startButton = document.getElementById('start-btn');
 const questionContainerElement = document.getElementById('question-container');
 const questionElement = document.getElementById('question');
-const questionImageElement = document.getElementById("question-img");
+const questionImageElement = document.getElementById('question-img');
 const answerButtonsElement = document.getElementById('answer-buttons');
+const timerElement = document.getElementById('timer');
+
 let shuffledQuestions, currentQuestionIndex;
-
-// for the timer of the game 
-const timerElement = document.getElementById("timer");
-let timerInterval;
-const GAME_DURATION = 3 * 60 * 1000; // Game duration in milliseconds (3 minutes)
-
-// to display marks of the game
 let score = 0;
+let timerInterval;
+const GAME_DURATION = 3 * 60 * 1000;
 
 startButton.addEventListener('click', startGame);
 nextButton.addEventListener('click', () => {
@@ -21,24 +17,21 @@ nextButton.addEventListener('click', () => {
     setNextQuestion();
 });
 
-// Starts the game, shuffles questions, and begins the timer
 function startGame() {
     console.log('Started');
     startButton.classList.add('hide');
-    shuffledQuestions = questions.sort(() => Math.random() - 0.5); // Shuffle questions
+    shuffledQuestions = questions.sort(() => Math.random() - 0.5);
     currentQuestionIndex = 0;
     questionContainerElement.classList.remove('hide');
     setNextQuestion();
-    startTimer(); // Start the game timer
+    startTimer();
 }
 
-// Sets the next question in the quiz
 function setNextQuestion() {
-    resetState(); // Reset previous state
-    showQuestion(shuffledQuestions[currentQuestionIndex]); // Show the next question
+    resetState();
+    showQuestion(shuffledQuestions[currentQuestionIndex]);
 }
 
-// Displays the current question and its answers
 function showQuestion(question) {
     questionElement.innerText = question.question;
     questionImageElement.src = question.image;
@@ -47,42 +40,44 @@ function showQuestion(question) {
         const button = document.createElement('button');
         button.innerText = answer.text;
         button.classList.add('btn');
-        if (answer.correct) {
-            button.dataset.correct = answer.correct;
-        }
-        button.addEventListener('click', () => selectAnswer(answer)); // Attach click event
+        button.dataset.correct = answer.correct;
+        button.addEventListener('click', () => selectAnswer(button, answer.correct));
         answerButtonsElement.appendChild(button);
     });
 }
 
-// Resets the state for the next question
 function resetState() {
     clearStatusClass(document.body);
     nextButton.classList.add('hide');
-    while (answerButtonsElement.firstChild) {
-        answerButtonsElement.removeChild(answerButtonsElement.firstChild);
-    }
+    answerButtonsElement.innerHTML = '';
 }
 
-// Handles answer selection and updates the score
-function selectAnswer(answer) {
-    const correct = answer.correct;
-    if (correct) {
-        score++;
-    }
-    setStatusClass(document.body, correct);
-    Array.from(answerButtonsElement.children).forEach(button => {
-        const isCorrect = button.dataset.correct === 'true';
-        setStatusClass(button, isCorrect);
+function selectAnswer(button, isCorrect) {
+    clearSelection();
+    button.classList.add('selected'); // Highlight selected button
+
+    setStatusClass(document.body, isCorrect);
+    Array.from(answerButtonsElement.children).forEach(btn => {
+        const isCorrectAnswer = btn.dataset.correct === 'true';
+        setStatusClass(btn, isCorrectAnswer);
     });
+
+    if (isCorrect) score++;
+
     if (shuffledQuestions.length > currentQuestionIndex + 1) {
-        nextButton.classList.remove('hide'); // Show next button if there are more questions
+        nextButton.classList.remove('hide');
     } else {
-        endGame(); // End the game if no more questions
+        endGame();
     }
 }
 
-// Adds the correct or wrong status class to an element
+function clearSelection() {
+    Array.from(answerButtonsElement.children).forEach(button => {
+        button.classList.remove('selected');
+    });
+    document.body.classList.remove('correct', 'wrong'); // Reset background
+}
+
 function setStatusClass(element, correct) {
     clearStatusClass(element);
     if (correct) {
@@ -92,75 +87,102 @@ function setStatusClass(element, correct) {
     }
 }
 
-// Removes status classes from an element
 function clearStatusClass(element) {
-    element.classList.remove('correct');
-    element.classList.remove('wrong');
+    element.classList.remove('correct', 'wrong');
 }
 
-// Starts the timer and updates every second
 function startTimer() {
     let timeRemaining = GAME_DURATION;
     updateTimerDisplay(timeRemaining);
-    
+
     timerInterval = setInterval(() => {
         timeRemaining -= 1000; // Decrease by 1 second
         if (timeRemaining <= 0) {
             clearInterval(timerInterval);
-            endGame(); // End game when time runs out
+            endGame();
         } else {
             updateTimerDisplay(timeRemaining);
         }
     }, 1000); // Update every second
 }
 
-// Updates the timer display with the remaining time
 function updateTimerDisplay(timeRemaining) {
     const minutes = Math.floor(timeRemaining / 60000);
     const seconds = Math.floor((timeRemaining % 60000) / 1000);
     timerElement.innerText = `Time Remaining: ${minutes}:${seconds.toString().padStart(2, '0')}`;
 }
 
-// Ends the game, shows the final score and hides the game elements
 function endGame() {
     console.log('Time is up!');
-    questionContainerElement.classList.add('hide');
-    startButton.classList.remove('hide');
-    clearStatusClass(document.body);
-    nextButton.classList.add('hide');
-    startButton.classList.add('hide');
-    timerElement.classList.add('hide');
-    displayScore(); // Show the final score
+    questionContainerElement.classList.add('hide'); // Hide the question container
+    clearInterval(timerInterval);
+
+    const endScreenElement = document.querySelector('.end-screen');
+    console.log('End Screen State:', endScreenElement.classList); // Debugging line
+    endScreenElement.classList.remove('hide'); // Ensure end screen is visible
+
+    document.body.style.backgroundColor = '#a4cada'; // Set the background color to light
+
+    displayScore(); // Display the score on the end screen
 }
 
-// Displays the final score and a congratulatory message
+
 function displayScore() {
-    const messageElement = document.createElement('div');
-    messageElement.classList.add('end-message');
-    messageElement.innerText = `Congratulations! You did a great job!`;
-
+    const endScreenElement = document.querySelector('.end-screen'); // Get the end screen element
+    const messageElement = endScreenElement.querySelector('.end-message'); // Find end message inside end screen
+    const scoreElement = endScreenElement.querySelector('.score'); // Find score element inside end screen
+    
+    messageElement.innerText = `You’ve Completed the Quiz!`;
     const totalQuestions = questions.length;
-    const scoreElement = document.createElement('div');
-    scoreElement.classList.add('score');
     scoreElement.innerText = `Your score: ${score}/${totalQuestions}`;
-    document.querySelector('.container').appendChild(scoreElement);
 
-    const container = document.querySelector('.container');
-    container.appendChild(messageElement);
-    container.appendChild(scoreElement);
-
-    triggerConfetti(); // Show confetti effect
+    triggerConfetti();
 }
 
-// Triggers a confetti effect at the end of the game
 function triggerConfetti() {
-    const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffffff'];
     confetti({
         particleCount: 200,
         spread: 360,
         startVelocity: 30,
-        colors: colors,
+        colors: ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffffff'],
         origin: { y: 0.6 },
         gravity: 0.6,
     });
 }
+
+const questions = [
+    {
+        question: 'Guess the correct spelling',
+        image: "images/baby.jpeg",
+        answers: [
+            { text: 'baby', correct: true },
+            { text: 'bady', correct: false },
+            { text: 'dady', correct: false },
+            { text: 'daby', correct: false }
+        ]
+    },
+    {
+        question: 'Guess the spelling correctly',
+        image: 'images/cat.jpeg',
+        answers: [
+            { text: 'cat', correct: true },
+            { text: 'kat', correct: false }
+        ]
+    },
+    {
+        question: 'Which of the two is correct ???',
+        image: 'images/q3.jpeg.jpg',
+        answers: [
+            { text: 'A', correct: true },
+            { text: 'B', correct: false }
+        ]
+    },
+    {
+        question: 'What is the boy doing ???',
+        image: 'images/swimming.jpg',
+        answers: [
+            { text: 'SWIMMING', correct: true },
+            { text: 'SWIMMMING', correct: false }
+        ]
+    }
+];
