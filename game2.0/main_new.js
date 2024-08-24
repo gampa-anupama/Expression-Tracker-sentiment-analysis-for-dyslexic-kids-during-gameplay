@@ -231,7 +231,7 @@ const questions = [
 },
 {
     question:"Guess the spelling correctly",
-    image: "images/net.jpeg",
+    image: "images/net.jpg",
     answers:[
         {text: "Met",correct:false},
         {text: "Net",correct:true}
