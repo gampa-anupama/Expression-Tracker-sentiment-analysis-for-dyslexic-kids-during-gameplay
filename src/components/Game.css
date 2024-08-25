@@ -1,0 +1,135 @@
+/* src/components/Game.css */
+:root {
+  --primary-color: #171616;
+  --secondary-color: #eba421;
+  --accent-color: #74b9ff;
+  --text-color: rgb(21, 20, 20);
+  --background-color: #a4cada;
+  --correct-color: #00b894;
+  --wrong-color: #d63031;
+  --word-color: white;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background-color);
+  transition: background-color 0.5s ease;
+}
+
+.correct {
+  background-color: var(--correct-color) !important;
+  color: white !important;
+}
+
+.wrong {
+  background-color: var(--wrong-color) !important;
+  color: white !important;
+}
+
+.game-container {
+  transition: background-color 0.5s ease;
+}
+
+.container {
+  width: 100%;
+  max-width: 700px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 15px 25px rgba(31, 16, 16, 0.038);
+  text-align: center;
+}
+
+.timer {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--text-color);
+  margin-bottom: 20px;
+}
+
+.question-text {
+  font-size: 1.6rem;
+  color: var(--primary-color);
+  margin-bottom: 15px;
+}
+
+.question-img {
+  display: block;
+  max-width: 50%;
+  height: auto;
+  margin: 10px auto;
+  border-radius: 5px;
+  box-shadow: 0px 5px 10px rgba(28, 22, 22, 0.218);
+}
+
+.btn-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.btn {
+  font-size: 1.2rem;
+  font-weight: bold;
+  background-color: var(--secondary-color);
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  color: var(--word-color);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.end-screen {
+  text-align: center;
+}
+
+.end-message {
+  font-size: 1
+  
+}
+.btn.correct {
+  background-color: green; /* Green background for correct answers */
+  color: white;
+}
+
+.btn.wrong {
+  background-color: red; /* Red background for wrong answers */
+  color: white;
+}
+
+
+body.correct-background {
+  background-color: green !important; /* Green background for correct answers */
+}
+
+body.wrong-background {
+  background-color: red !important; /* Red background for wrong answers */
+}
+
+body {
+  transition: background-color 0.5s ease;
+}
+/* Game.css */
+.original-bg {
+  background-color: #ffffff; /* Replace with the original background color */
+}
+
+/* Game.css */
+.game-container {
+  width: 100%;
+  max-width: 800px; /* Optional: Adjust max width to center the game area */
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #fff; /* Background color of your game container */
+  border-radius: 10px; /* Optional: For a rounded border effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow for better visibility */
+}

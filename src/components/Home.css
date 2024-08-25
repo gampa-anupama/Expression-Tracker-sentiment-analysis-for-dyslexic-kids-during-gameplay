@@ -1,0 +1,77 @@
+/* General Home Page Styles */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header Styles */
+.header {
+  display: flex;
+  justify-content: flex-end; /* Aligns nav links to the right */
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #edc4c7;
+  width: 100%; /* Ensures the header covers the full width */
+  box-sizing: border-box; /* Includes padding in width calculation */
+}
+
+/* Navigation Links */
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+}
+
+.nav-links a:hover {
+  color: #007bff;
+}
+
+/* Footer Styles */
+.home-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  background-color: #edc4c7;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Aligns buttons to the left */
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Home Page Buttons */
+.home-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Aligns buttons to the left */
+  padding-left: 20px; /* Add some padding to separate from the edge */
+}
+
+.home-buttons button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px; /* Slightly curved edges */
+  background-color: #ffcccb; /* Light pink color */
+  color: #333; /* Text color for better contrast */
+  transition: background-color 0.3s; /* Smooth color transition */
+}
+
+.home-buttons button:hover {
+  background-color: #ff9999; /* Darker pink for hover effect */
+}
