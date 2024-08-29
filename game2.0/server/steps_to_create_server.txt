@@ -1,0 +1,13 @@
+npm install axios
+npm install canvas-confetti
+npm install buffer process
+
+set up and installations requried for backend 
+
+mkdir name_folder { this is to create a folder for the backend}
+cd name_folder { changing the directory to the backend folder}
+npm init -y { this command is to create package.jason file for the backend }
+npm install express multer
+
+After creating the backend folder create a file server.js or index.js 
+and another empty folder called uploads to upload the images captured in the frontend
