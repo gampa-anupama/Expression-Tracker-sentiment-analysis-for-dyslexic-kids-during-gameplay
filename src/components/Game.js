@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './Game.css';
 import confetti from 'canvas-confetti';
 import Header from './Header';
-
 const questions = [
   {
     question: "Guess the correct spelling",
@@ -60,6 +59,7 @@ const Game = () => {
   const [hasStarted, setHasStarted] = useState(false); // New state for game start
 
   useEffect(() => {
+    // shuffling the questions during the game play
     setShuffledQuestions(questions.sort(() => Math.random() - 0.5));
   }, []);
 
