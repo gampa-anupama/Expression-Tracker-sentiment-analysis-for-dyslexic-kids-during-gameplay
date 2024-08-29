@@ -133,3 +133,31 @@ body {
   border-radius: 10px; /* Optional: For a rounded border effect */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow for better visibility */
 }
+/* Game.css */
+
+/* Add styles for the start screen */
+.start-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30vh;
+  width: 300px;
+   /* Full viewport height */
+  background-color: white; /* White background for visibility */
+}
+
+.start-btn {
+  padding: 20px 40px; /* Increase padding for a larger button */
+  font-size: 24px; /* Larger font size for better visibility */
+  background-color: #eba421; /* Green background color */
+  color: white; /* White text color */
+  border: none; /* Remove border */
+  border-radius: 10px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth background transition */
+}
+
+/* Add hover effect for the start button */
+.start-btn:hover {
+  background-color: #eba421; /* Darker green on hover */
+}

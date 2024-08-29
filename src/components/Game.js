@@ -1,153 +1,7 @@
-// import React, { useState, useEffect } from "react";
-// import confetti from "canvas-confetti"; // Make sure to install this if you haven't: npm install canvas-con
-// import './Game.css'; // Importing the CSS file
-// const Game = () => {
-//   const [shuffledQuestions, setShuffledQuestions] = useState([]);
-//   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-//   const [score, setScore] = useState(0);
-//   const [timeRemaining, setTimeRemaining] = useState(3 * 60);
-//   const [gameOver, setGameOver] = useState(false);
-
-//   useEffect(() => {
-//     // Shuffle questions on start
-//     const questions = [
-//       {
-//         question: "Guess the correct spelling",
-//         image: "images/baby.jpeg",
-//         answers: [
-//           { text: "baby", correct: true },
-//           { text: "bady", correct: false },
-//           { text: "dady", correct: false },
-//           { text: "daby", correct: false },
-//         ],
-//       },
-//       {
-//         question: "Guess the spelling correctly",
-//         image: "images/cat.jpeg",
-//         answers: [
-//           { text: "cat", correct: true },
-//           { text: "kat", correct: false },
-//         ],
-//       },
-//       {
-//         question: "Which of the two is correct ???",
-//         image: "images/q3.jpeg.jpg",
-//         answers: [
-//           { text: "A", correct: true },
-//           { text: "B", correct: false },
-//         ],
-//       },
-//       {
-//         question: "What is the boy doing ???",
-//         image: "images/swimming.jpg",
-//         answers: [
-//           { text: "SWIMMING", correct: true },
-//           { text: "SWIMMMING", correct: false },
-//         ],
-//       },
-     
-//     ];
-//     setShuffledQuestions(questions.sort(() => Math.random() - 0.5));
-//   }, []);
-
-//   useEffect(() => {
-//     if (timeRemaining > 0 && !gameOver) {
-//       const timer = setInterval(() => {
-//         setTimeRemaining(timeRemaining - 1);
-//       }, 1000);
-//       return () => clearInterval(timer);
-//     } else if (timeRemaining <= 0) {
-//       endGame();
-//     }
-//   }, [timeRemaining, gameOver]);
-
-//   const setNextQuestion = () => {
-//     setCurrentQuestionIndex(currentQuestionIndex + 1);
-//   };
-
-//   const selectAnswer = (isCorrect) => {
-//     if (isCorrect) setScore(score + 1);
-//     if (shuffledQuestions.length > currentQuestionIndex + 1) {
-//       setNextQuestion();
-//     } else {
-//       endGame();
-//     }
-//   };
-
-//   const endGame = () => {
-//     setGameOver(true);
-//     triggerConfetti();
-//   };
-
-//   const triggerConfetti = () => {
-//     let particleCount = 100;
-//     const colorOptions = ["#ff0000", "#00ff00", "#0000ff", "#ffff00", "#ff00ff", "#00ffff", "#ffffff"];
-
-//     const createConfetti = () => {
-//       for (let i = 0; i < particleCount; i++) {
-//         confetti({
-//           particleCount: 1,
-//           spread: 360,
-//           startVelocity: Math.random() * 10 + 10,
-//           gravity: 0.6,
-//           colors: [colorOptions[Math.floor(Math.random() * colorOptions.length)]],
-//           origin: { x: Math.random(), y: 0 },
-//         });
-//       }
-//     };
-
-//     const confettiInterval = setInterval(() => {
-//       createConfetti();
-//       particleCount = Math.max(5, particleCount - 5);
-//     }, 100);
-
-//     setTimeout(() => {
-//       clearInterval(confettiInterval);
-//     }, 10000);
-//   };
-
-//   return (
-//     <div className="game">
-//       {/* <link rel="stylesheet" href="Game_style.css"></link> */}
-//       <div id="question-container">
-//         <div id="question">{shuffledQuestions[currentQuestionIndex]?.question}</div>
-//         <img id="question-img" src={shuffledQuestions[currentQuestionIndex]?.image} alt="Question" />
-//         <div id="answer-buttons">
-//           {shuffledQuestions[currentQuestionIndex]?.answers.map((answer) => (
-//             <button key={answer.text} className="btn" onClick={() => selectAnswer(answer.correct)}>
-//               {answer.text}
-//             </button>
-//           ))}
-//         </div>
-//       </div>
-//       <div id="timer">
-//         Time Remaining: {Math.floor(timeRemaining / 60)}:{(timeRemaining % 60).toString().padStart(2, "0")}
-//       </div>
-//       {gameOver && (
-//         <div className="end-screen">
-//           <div className="end-message">
-//             You have Completed the Quiz!
-//           </div>
-//           <div className="score">
-//             Your score: {score}/{shuffledQuestions.length}
-//           </div>
-//           {score === shuffledQuestions.length && <div className="full-score">Congrats! You scored full marks!</div>}
-          
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default Game;
-
-// src/components/Game.js
-
 import React, { useState, useEffect } from 'react';
 import './Game.css';
 import confetti from 'canvas-confetti';
 import Header from './Header';
-// these are the questions that we display during the game play
 const questions = [
   {
     question: "Guess the correct spelling",
@@ -202,6 +56,7 @@ const Game = () => {
   const [showEndScreen, setShowEndScreen] = useState(false);
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
   const [answerStates, setAnswerStates] = useState([]); // Array to track button states
+  const [hasStarted, setHasStarted] = useState(false); // New state for game start
 
   useEffect(() => {
     // shuffling the questions during the game play
@@ -227,6 +82,7 @@ const Game = () => {
     setShowEndScreen(false);
     setSelectedAnswerIndex(null);
     setAnswerStates([]);
+    setHasStarted(true); // Start the game
     document.body.classList.remove('correct', 'wrong');
     document.body.style.backgroundColor = ''; // Reset to original color at the start
   };
@@ -310,8 +166,12 @@ const Game = () => {
 
   return (
     <div className="game-container">
-      <Header/>
-      {!showEndScreen ? (
+      <Header />
+      {!hasStarted ? (
+        <div className="start-screen">
+          <button className="btn start-btn" onClick={startGame}>Start</button>
+        </div>
+      ) : !showEndScreen ? (
         <>
           <div className="timer">Time Remaining: {Math.floor(timeRemaining / 60)}:{(timeRemaining % 60).toString().padStart(2, '0')}</div>
           <div id="question-container">
@@ -333,12 +193,11 @@ const Game = () => {
         </>
       ) : (
         <div className="end-screen">
-          <div className="end-message"><br></br>
+          <div className="end-message">
             {score === questions.length ? "Congrats! You have scored full marks!" : "You’ve Completed the Quiz!"}
           </div>
-          <br></br><div className="score">Your score: {score}/{questions.length}</div>
-          
-          <br></br><button className="btn" onClick={() => window.location.href = '/'}>Home</button>
+          <div className="score">Your score: {score}/{questions.length}</div>
+          <button className="btn" onClick={() => window.location.href = '/'}>Home</button>
         </div>
       )}
     </div>
