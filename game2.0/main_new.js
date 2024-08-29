@@ -7,6 +7,7 @@ const answerButtonsElement = document.getElementById("answer-buttons");
 const timerElement = document.getElementById("timer");
 //
 //
+
 let shuffledQuestions, currentQuestionIndex;
 let score = 0;
 let timerInterval;
