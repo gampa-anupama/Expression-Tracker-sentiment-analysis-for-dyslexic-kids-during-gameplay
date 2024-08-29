@@ -1,5 +1,5 @@
 import React from "react";
-
+//we are starting
 const Footer = () => {
   return (
     <footer className="App-footer">
