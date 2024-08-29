@@ -1,5 +1,5 @@
 import React from "react";
-
+//we are starting
 const Footer = () => {
   return (
     <footer className="App-footer">
@@ -8,5 +8,6 @@ const Footer = () => {
     </footer>
   );
 };
-
+//
 export default Footer;
+//ending
