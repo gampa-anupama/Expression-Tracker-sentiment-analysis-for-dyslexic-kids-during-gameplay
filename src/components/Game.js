@@ -1,7 +1,12 @@
+import { Buffer } from 'buffer';
+import process from 'process';
 import React, { useState, useEffect } from 'react';
+import { useRef } from 'react';
 import './Game.css';
 import confetti from 'canvas-confetti';
 import Header from './Header';
+import axios from 'axios';
+
 const questions = [
   {
     question: "Guess the correct spelling",
@@ -57,6 +62,27 @@ const Game = () => {
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
   const [answerStates, setAnswerStates] = useState([]); // Array to track button states
   const [hasStarted, setHasStarted] = useState(false); // New state for game start
+  
+  const [webcamGranted, setWebcamGranted] = useState(false); // State to track webcam access
+
+  const videoRef = useRef(null); // Reference to the video element
+  const canvasRef = useRef(null); // Reference to the canvas element for capturing images
+  const captureIntervalRef = useRef(null); // To store the interval ID for image capture
+
+  // Function to request webcam access
+  const requestWebcamAccess = () => {
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then((stream) => {
+        videoRef.current.srcObject = stream;
+        setWebcamGranted(true);
+        videoRef.current.style.display='none' // hide the vedio feed
+        //startGame(); // Webcam access granted
+      })
+      .catch((err) => {
+        console.error('Error accessing webcam:', err);
+        setWebcamGranted(false); // Webcam access denied
+      });
+  };
 
   useEffect(() => {
     // shuffling the questions during the game play
@@ -75,6 +101,7 @@ const Game = () => {
   }, [timeRemaining, showEndScreen]);
 
   const startGame = () => {
+    if(!webcamGranted) return; // ensure webcame access before starting
     setShuffledQuestions(questions.sort(() => Math.random() - 0.5));
     setCurrentQuestionIndex(0);
     setScore(0);
@@ -83,8 +110,27 @@ const Game = () => {
     setSelectedAnswerIndex(null);
     setAnswerStates([]);
     setHasStarted(true); // Start the game
+    captureIntervalRef.current = setInterval(captureImage, 30000);
+     // start image caputre(calling the image capture function for every 30 secs)
     document.body.classList.remove('correct', 'wrong');
     document.body.style.backgroundColor = ''; // Reset to original color at the start
+  };
+
+  const captureImage = () => {
+    const video = videoRef.current;
+    const canvas = canvasRef.current;
+    const context = canvas.getContext('2d');
+
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    canvas.toBlob((blob) => {
+      const formData = new FormData();
+      formData.append('image', blob, `capture-${Date.now()}.png`);
+
+      // Send the image to the server
+      axios.post('http://localhost:5000/uploads', formData)
+        .then((response) => console.log('Image uploaded:', response.data))
+        .catch((error) => console.error('Error uploading image:', error));
+    });
   };
 
   const setNextQuestion = () => {
@@ -132,6 +178,8 @@ const Game = () => {
 
   const endGame = () => {
     setShowEndScreen(true);
+    clearInterval(captureIntervalRef.current); // Stop image capture
+    
     document.body.classList.remove('correct', 'wrong');
     document.body.style.backgroundColor = ''; // Reset to original color for end screen
     triggerConfetti();
@@ -167,7 +215,14 @@ const Game = () => {
   return (
     <div className="game-container">
       <Header />
-      {!hasStarted ? (
+      <video ref={videoRef} autoPlay playsInline style={{ display : 'none' }}></video>
+      <canvas ref={canvasRef} style={{ display: 'none' }} width="640" height="480"></canvas>
+
+      {!webcamGranted ? (
+        <div className="start-screen">
+          <button className="btn start-btn" onClick={requestWebcamAccess}>Allow to access camera</button>
+        </div>
+      ) :!hasStarted ? (
         <div className="start-screen">
           <button className="btn start-btn" onClick={startGame}>Start</button>
         </div>
@@ -203,6 +258,5 @@ const Game = () => {
     </div>
   );
 };
-//im done
+
 export default Game;
-//hahahahdiejsk
