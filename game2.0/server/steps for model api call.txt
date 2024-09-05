@@ -1,0 +1,35 @@
+Navigate to your backend folder (the folder where your server.js or app.js file is located).
+
+to install all the installations requried at once run the command:
+  - npm install express multer cors formdata-node node-fetch
+
+Run the following command to install axios:
+  - npm install axios
+  - npm install formdata-node
+
+
+this the token created after signing in the hugging face website
+use the same token donot create another one 
+hugging face access token: 
+    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
+
+output: 
+requried:
+[{"label":"neutral","score":0.4954281449317932},
+{"label":"happy","score":0.4619649648666382},
+{"label":"sad","score":0.028486590832471848},
+{"label":"angry","score":0.004909730050712824},
+{"label":"disgust","score":0.004847954958677292}]
+
+{"error":"Model trpakov/vit-face-expression is currently loading","estimated_time":20}
+sometimes if the model is not loaded completely then is shows ouput sometinhg like this 
+resolve the above error 
+
+Summary:
+The server allows image uploads to the /uploads endpoint.
+The image is saved to the uploads folder on the server.
+Once uploaded, the image is sent to the Hugging Face API for facial expression analysis.
+The server logs both the uploaded image details and the API response to the console.
+This structure is useful for any application where users can upload images for analysis
+ or processing by external services like AI models.
+
