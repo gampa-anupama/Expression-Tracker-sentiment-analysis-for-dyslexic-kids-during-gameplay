@@ -110,7 +110,7 @@ const Game = () => {
     setSelectedAnswerIndex(null);
     setAnswerStates([]);
     setHasStarted(true); // Start the game
-    captureIntervalRef.current = setInterval(captureImage, 30000);
+    captureIntervalRef.current = setInterval(captureImage, 10000);
      // start image caputre(calling the image capture function for every 30 secs)
     document.body.classList.remove('correct', 'wrong');
     document.body.style.backgroundColor = ''; // Reset to original color at the start
