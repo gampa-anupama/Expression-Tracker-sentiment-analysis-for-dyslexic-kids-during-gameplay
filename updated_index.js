@@ -8,7 +8,7 @@ const Analysis = require('./schema'); // Import the Analysis model
 
 let fetch;
 
-(async () => {
+(async () => {    
   fetch = (await import('node-fetch')).default;
 })();
 
