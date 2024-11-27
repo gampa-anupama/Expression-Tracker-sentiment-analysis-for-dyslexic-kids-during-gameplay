@@ -1,0 +1,83 @@
+/* App.css */
+
+/* Reset html and body to cover full height */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Full-screen background for Home and Game Pages */
+.full-background {
+  background-image: url('C:\Users\anupa\expression\src\assets\backgrongImage.png'); /* Use relative path */
+  opacity: 0.9;
+  background-size: cover; /* Cover the entire area */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent repeating */
+  height: 100vh; /* Full viewport height */
+  width: 100vw; /* Full viewport width */
+}
+
+/* No background for Analysis and other pages */
+.no-background {
+  background-color: rgba(255, 255, 255, 0); /* Optional: set a plain color */
+  max-width: 700px;
+  max-height: auto;
+}
+
+/* Content styles */
+.content {
+  padding: 10px; /* Padding for the main content */
+  min-height: calc(100vh - 40px); /* Ensure the content area takes up full height */
+  display: flex; /* Use flexbox for content alignment */
+  flex-direction: column; /* Align items vertically */
+  justify-content: center; /* Center items vertically */
+  align-items: center; /* Center items horizontally */
+}
+
+.analysis-background {
+  background-image: url('C:\Users\anupa\expression\src\assets\AnalysisBackground.png'); /* Replace with your image path */
+  opacity: 0.9;
+  background-size: cover; /* Cover the entire area */
+  background-position: center; /* Center the image */
+  background-repeat: repeat; /* Prevent repeating */
+  height: 100vh; /* Full viewport height */
+  width: 100vw; /* Full viewport width */
+}
+
+body {
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  height: 100vh; /* Ensure the body takes full height */
+}
+
+
+
+.content {
+  position: relative; /* Keep content above background */
+  z-index: 1; /* Ensure content is above the background */
+}
+
+/* Add this CSS rule */
+.login-background {
+  background-image: url('C:\Users\anupa\expression\src\assets\backgrongImage.png'); /* Replace with your image path */
+  opacity: 0.9 ;
+  background-size: cover; /* Cover the entire container */
+  background-position: center; /* Center the background image */
+  height: 100vh; /* Set height to full viewport height */
+  width: 100vw; /* Set width to full viewport width */
+  position: absolute; /* Position it absolutely to cover the whole viewport */
+  top: 0; /* Align to the top */
+  left: 0; /* Align to the left */
+  z-index: -1; /* Send it to the back */
+}
+
+/* Example: Update the paths as needed */
+.full-background {
+  background-image: url('C:\Users\anupa\expression\src\assets\backgrongImage.png'); /* Ensure the path is correct */
+}
+
+.analysis-background {
+  background-image: url('C:\Users\anupa\expression\src\assets\AnalysisBackground.png'); /* Ensure the path is correct */
+}
